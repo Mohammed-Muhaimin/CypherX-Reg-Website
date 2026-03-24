@@ -73,7 +73,8 @@ export default async function handler(req, res) {
 
       // Format the data as a CSV row
       const sanitize = (val) => val ? String(val).replace(/"/g, '""') : '';
-      const newCsvRow = `"${sanitize(teamName)}","${sanitize(m1Name)}","${sanitize(m1Reg)}","${sanitize(m2Name)}","${sanitize(m2Reg)}","${sanitize(email)}","${sanitize(phone)}","${sanitize(college)}","${sanitize(dept)}","${sanitize(ctfExp)}","${sanitize(transactionId)}","${sanitize(upiImageUrl)}"\n`;
+      const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+      const newCsvRow = `"${sanitize(teamName)}","${sanitize(m1Name)}","${sanitize(m1Reg)}","${sanitize(m2Name)}","${sanitize(m2Reg)}","${sanitize(email)}","${sanitize(phone)}","${sanitize(college)}","${sanitize(dept)}","${sanitize(ctfExp)}","${sanitize(transactionId)}","${sanitize(upiImageUrl)}","${sanitize(timestamp)}"\n`;
 
       const githubUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
       
@@ -91,7 +92,7 @@ export default async function handler(req, res) {
         currentContent = Buffer.from(fileData.content, 'base64').toString('utf8');
       } else if (getRes.status === 404) {
         // Create the header row if file doesn't exist
-        currentContent = `"Team Name","Member 1 Name","Member 1 Reg No","Member 2 Name","Member 2 Reg No","Email","Phone","College Name","Department","CTF Experience","Transaction ID","UPI Screenshot URL"\n`;
+        currentContent = `"Team Name","Member 1 Name","Member 1 Reg No","Member 2 Name","Member 2 Reg No","Email","Phone","College Name","Department","CTF Experience","Transaction ID","UPI Screenshot URL","Registration Time"\n`;
       }
 
       // 2. Append the new row to the existing content
