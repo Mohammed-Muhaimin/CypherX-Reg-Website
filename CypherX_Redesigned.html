@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CypherX — CodeRed Club · MIT Mysore</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Satisfy&family=Josefin+Sans:wght@300;400;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+/* ── POSTER EXACT PALETTE ── */
+:root{
+  --bg:       #1a0608;
+  --bg2:      #240a0d;
+  --crimson:  #8b1a22;
+  --red:      #c0282e;
+  --red-glow: #e03040;
+  --white:    #ffffff;
+  --off-white:#f5f0ee;
+  --grey:     rgba(255,255,255,0.55);
+  --pill-bg:  rgba(255,255,255,0.17);
+  --pill-bdr: rgba(255,255,255,0.35);
+}
+
+body{
+  background:var(--bg);
+  color:var(--white);
+  font-family:'Josefin Sans',sans-serif;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+
+#rain{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+.bg-glow{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 0%,   rgba(160,30,40,0.55) 0%,transparent 70%),
+    radial-gradient(ellipse 50% 40% at 10% 60%,  rgba(120,15,25,0.3)  0%,transparent 60%),
+    radial-gradient(ellipse 45% 35% at 90% 70%,  rgba(120,15,25,0.25) 0%,transparent 55%);
+}
+
+nav,section,.ticker-strip,.rulebook-section,footer{position:relative;z-index:3;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;height:56px;
+  background:rgba(18,4,6,0.9);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(180,30,40,0.4);
+}
+.nav-logo{font-family:'Black Ops One',cursive;font-size:22px;color:var(--white);text-decoration:none;letter-spacing:0.04em;}
+.nav-logo .x{color:var(--red-glow);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--white);}
+.nav-reg{font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--white);background:var(--red);border:none;padding:9px 22px;text-decoration:none;transition:background 0.2s;}
+.nav-reg:hover{background:var(--red-glow);}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+.ham span{display:block;width:24px;height:2px;background:var(--white);}
+.mob-menu{display:none;position:fixed;top:56px;left:0;right:0;background:rgba(18,4,6,0.97);flex-direction:column;z-index:99;border-bottom:1px solid rgba(180,30,40,0.4);}
+.mob-menu.open{display:flex;}
+.mob-menu a{font-family:'Josefin Sans',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;padding:16px 24px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.mob-menu a:last-child{color:var(--red-glow);border-bottom:none;}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px 48px;text-align:center;}
+.hero-institute{font-family:'Josefin Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);margin-bottom:4px;}
+.hero-inst-sub{font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:300;font-style:italic;letter-spacing:0.1em;color:rgba(255,255,255,0.6);margin-bottom:22px;}
+.hero-dept{font-family:'Oswald',sans-serif;font-size:clamp(14px,3.8vw,20px);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--white);line-height:1.25;margin-bottom:4px;}
+.hero-presents{font-family:'Josefin Sans',sans-serif;font-size:12px;font-weight:300;letter-spacing:0.35em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:18px;}
+.hero-title{font-family:'Black Ops One',cursive;font-size:clamp(72px,24vw,200px);line-height:0.82;letter-spacing:0.02em;color:var(--white);text-shadow:3px 3px 0 rgba(0,0,0,0.6),0 0 60px rgba(200,30,40,0.4);margin-bottom:0;}
+.hero-title .line-x{display:block;color:var(--white);}
+.hero-tagline{font-family:'Satisfy',cursive;font-size:clamp(14px,4vw,22px);color:var(--white);margin:14px 0 32px;letter-spacing:0.02em;}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;}
+.btn-main{font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);background:var(--red);border:none;padding:14px 36px;text-decoration:none;transition:background 0.2s,box-shadow 0.2s;border-radius:2px;}
+.btn-main:hover{background:var(--red-glow);box-shadow:0 6px 24px rgba(200,30,40,0.45);}
+.btn-outline{font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);background:transparent;border:1.5px solid rgba(255,255,255,0.45);padding:13px 28px;text-decoration:none;transition:border-color 0.2s,background 0.2s;border-radius:2px;display:flex;align-items:center;gap:8px;}
+.btn-outline:hover{border-color:var(--white);background:rgba(255,255,255,0.07);}
+.btn-outline svg{width:15px;height:15px;}
+.hero-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}
+.stat-pill{background:var(--pill-bg);border:1px solid var(--pill-bdr);border-radius:50px;padding:8px 20px;backdrop-filter:blur(8px);text-align:center;min-width:100px;}
+.stat-k{font-family:'Josefin Sans',sans-serif;font-size:8px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:2px;}
+.stat-v{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;color:var(--white);letter-spacing:0.05em;}
+.stat-pill.accent .stat-v{color:var(--red-glow);}
+
+/* ── TICKER ── */
+.ticker-strip{background:var(--red);padding:10px 0;overflow:hidden;border-top:1px solid rgba(255,255,255,0.1);border-bottom:1px solid rgba(0,0,0,0.3);}
+.ticker-track{display:flex;white-space:nowrap;animation:ticker 22s linear infinite;}
+.t-item{font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:var(--white);padding:0 32px;}
+.t-item::after{content:'·';margin-left:32px;opacity:0.5;}
+@keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* ── RULEBOOK ── */
+.rulebook-section{padding:0 20px;}
+.rulebook-inner{max-width:660px;margin:0 auto;padding:40px 0 0;}
+.rulebook-card{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.18);border-radius:6px;padding:20px 22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.rulebook-icon{font-size:28px;flex-shrink:0;}
+.rulebook-text{flex:1;min-width:180px;}
+.rulebook-text h3{font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--white);margin-bottom:3px;}
+.rulebook-text p{font-size:12px;color:var(--grey);letter-spacing:0.03em;}
+.rulebook-dl{font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);background:rgba(255,255,255,0.13);border:1px solid rgba(255,255,255,0.35);padding:10px 22px;text-decoration:none;border-radius:3px;white-space:nowrap;display:flex;align-items:center;gap:7px;transition:background 0.2s;}
+.rulebook-dl:hover{background:rgba(255,255,255,0.22);}
+.rulebook-dl svg{width:14px;height:14px;}
+
+/* ── SECTIONS ── */
+.section{padding:60px 20px;}
+.sec-inner{max-width:660px;margin:0 auto;}
+.sec-head{margin-bottom:28px;}
+.sec-label{font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.38em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:8px;}
+.sec-title{font-family:'Oswald',sans-serif;font-size:clamp(26px,6vw,36px);font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--white);}
+
+/* ── ROUNDS ── */
+.rounds-list{display:flex;flex-direction:column;gap:12px;}
+.round-card{display:flex;align-items:flex-start;gap:16px;}
+.round-pill{background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.5);border-radius:10px;padding:12px 18px;font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--white);white-space:nowrap;flex-shrink:0;min-width:120px;text-align:center;backdrop-filter:blur(6px);}
+.round-content{flex:1;padding-top:8px;}
+.round-title{font-family:'Oswald',sans-serif;font-size:clamp(16px,4vw,20px);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--white);line-height:1.25;margin-bottom:4px;}
+.round-sub{font-family:'Josefin Sans',sans-serif;font-size:12px;color:rgba(255,255,255,0.55);line-height:1.6;}
+.round-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
+.rtag{font-family:'Josefin Sans',sans-serif;font-size:8px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.2);padding:2px 9px;border-radius:20px;}
+.round-divider{border:none;border-top:1px solid rgba(255,255,255,0.1);margin:0;}
+
+/* ── VENUE ── */
+.venue-card{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:24px;margin-bottom:20px;}
+.venue-lbl{font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:8px;}
+.venue-name{font-family:'Oswald',sans-serif;font-size:26px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--white);margin-bottom:6px;line-height:1.15;}
+.venue-addr{font-size:13px;color:var(--grey);line-height:1.85;}
+
+/* ── FEE ── */
+.fee-card{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:24px;margin-bottom:20px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+.fee-amount{font-family:'Black Ops One',cursive;font-size:72px;color:var(--white);line-height:1;}
+.fee-amount sup{font-size:32px;color:var(--red-glow);vertical-align:super;}
+.fee-info{flex:1;}
+.fee-lbl{font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:10px;}
+.fee-list{display:flex;flex-direction:column;gap:6px;}
+.fee-item{font-family:'Josefin Sans',sans-serif;font-size:12px;color:rgba(255,255,255,0.65);letter-spacing:0.04em;display:flex;align-items:center;gap:8px;}
+.fee-item::before{content:'—';color:var(--red-glow);font-weight:700;flex-shrink:0;}
+
+/* ── COORDS ── */
+.coord-group{margin-bottom:28px;}
+.coord-group-label{font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.4);padding-bottom:10px;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.coord-grid{display:flex;flex-direction:column;gap:10px;}
+.coord-item{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.13);border-radius:6px;padding:14px 18px;display:flex;align-items:center;gap:14px;}
+.coord-n{font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:700;color:rgba(255,255,255,0.2);width:18px;flex-shrink:0;}
+.coord-info{flex:1;}
+.coord-name{font-family:'Oswald',sans-serif;font-size:17px;font-weight:600;letter-spacing:0.06em;color:var(--white);}
+.coord-role{font-size:11px;color:rgba(255,255,255,0.42);margin-top:1px;letter-spacing:0.04em;}
+.coord-phone{font-family:'Josefin Sans',sans-serif;font-size:12px;font-weight:700;color:var(--red-glow);margin-top:3px;letter-spacing:0.04em;}
+
+
+/* ── FORM ── */
+.form-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:28px 24px;position:relative;overflow:hidden;}
+.form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--red-glow),rgba(200,40,50,0.2));}
+.form-title{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--white);margin-bottom:3px;}
+.form-sub{font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:24px;}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
+.frow{display:flex;gap:12px;}
+.frow .fg{flex:1;}
+.flbl{font-family:'Josefin Sans',sans-serif;font-size:8px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.45);}
+.finput,.fsel{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:var(--white);font-family:'Josefin Sans',sans-serif;font-size:13px;font-weight:400;padding:11px 13px;outline:none;width:100%;transition:border-color 0.2s;border-radius:3px;-webkit-appearance:none;}
+.finput:focus,.fsel:focus{border-color:rgba(255,255,255,0.6);}
+.finput::placeholder{color:rgba(255,255,255,0.2);}
+.fsel{cursor:pointer;appearance:none;}
+.fsel option{background:#1a0608;}
+.fdiv{display:flex;align-items:center;gap:10px;font-family:'Josefin Sans',sans-serif;font-size:8px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin:4px 0 14px;}
+.fdiv::before,.fdiv::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08);}
+.fsub{width:100%;font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);background:var(--red);border:none;padding:15px;cursor:pointer;border-radius:3px;margin-top:6px;transition:background 0.2s,box-shadow 0.2s;}
+.fsub:hover{background:var(--red-glow);box-shadow:0 6px 24px rgba(200,40,50,0.4);}
+.success{display:none;text-align:center;padding:40px 0;}
+.s-check{font-size:42px;margin-bottom:12px;}
+.s-title{font-family:'Black Ops One',cursive;font-size:24px;color:var(--white);letter-spacing:0.08em;margin-bottom:8px;}
+.s-sub{font-size:12px;color:var(--grey);line-height:1.9;letter-spacing:0.04em;}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid rgba(255,255,255,0.1);padding:28px 20px;text-align:center;}
+.footer-logo{font-family:'Black Ops One',cursive;font-size:26px;letter-spacing:0.06em;color:var(--white);margin-bottom:8px;}
+.footer-sub{font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);line-height:2.2;}
+.codered-badge{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--red-glow);}
+
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--red);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:680px){
+  .nav-links,.nav-reg{display:none;}
+  .ham{display:flex;}
+  .hero-title{font-size:clamp(68px,20vw,130px);}
+  .hero{padding:72px 18px 40px;}
+  .section{padding:48px 18px;}
+  .fee-card{flex-direction:column;text-align:center;}
+  .fee-amount{font-size:60px;}
+  .frow{flex-direction:column;gap:0;}
+  .round-card{flex-direction:column;gap:8px;}
+  .round-pill{min-width:auto;width:100%;}
+  .rulebook-card{flex-direction:column;text-align:center;}
+  .rulebook-dl{width:100%;justify-content:center;}
+  .hero-btns{flex-direction:column;align-items:center;}
+  .btn-main,.btn-outline{width:100%;max-width:300px;justify-content:center;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="rain"></canvas>
+<div class="bg-glow"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">CYPHER<span class="x">X</span></a>
+  <ul class="nav-links">
+    <li><a href="#rounds">Rounds</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#register">Register</a></li>
+  </ul>
+  <a href="#register" class="nav-reg">Register Now</a>
+  <div class="ham" id="ham" onclick="toggleMob()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mob-menu" id="mob">
+  <a href="#rounds"   onclick="toggleMob()">Rounds</a>
+  <a href="#team"     onclick="toggleMob()">Team</a>
+  <a href="#register" onclick="toggleMob()">Register Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-institute">Maharaja Institute of Technology Mysore</p>
+  <p class="hero-inst-sub">An Autonomous Institute Affiliated to VTU Belagavi</p>
+  <p class="hero-dept">Dept. of CSE – IC &amp; Code Red</p>
+  <p class="hero-presents">Presents</p>
+  <h1 class="hero-title">CYPHER<span class="line-x">X</span></h1>
+  <p class="hero-tagline">A 3-level escape room based technical game!</p>
+  <div class="hero-btns">
+    <a href="#register" class="btn-main">Register Your Team</a>
+    <a href="#rulebook" class="btn-outline" id="rl-hero">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Rulebook
+    </a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-pill"><p class="stat-k">Date</p><p class="stat-v">30 March</p></div>
+    <div class="stat-pill"><p class="stat-k">Time</p><p class="stat-v">09:00 AM</p></div>
+    <div class="stat-pill"><p class="stat-k">Venue</p><p class="stat-v">CSE-IoT Lab</p></div>
+    <div class="stat-pill"><p class="stat-k">Team Size</p><p class="stat-v">2 Members</p></div>
+    <div class="stat-pill accent"><p class="stat-k">Reg. Fee</p><p class="stat-v">₹ 300</p></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-strip">
+  <div class="ticker-track">
+    <span class="t-item">Exploit</span><span class="t-item">Capture the Flag</span><span class="t-item">Escape Room</span><span class="t-item">Cryptography</span><span class="t-item">Steganography</span><span class="t-item">Web Exploitation</span><span class="t-item">Code Red Club</span><span class="t-item">30th March 2026</span><span class="t-item">MIT Mysore</span><span class="t-item">Exploit</span><span class="t-item">Capture the Flag</span><span class="t-item">Escape Room</span><span class="t-item">Cryptography</span><span class="t-item">Steganography</span><span class="t-item">Web Exploitation</span><span class="t-item">Code Red Club</span><span class="t-item">30th March 2026</span><span class="t-item">MIT Mysore</span>
+  </div>
+</div>
+
+<!-- RULEBOOK -->
+<div class="rulebook-section" id="rulebook">
+  <div class="rulebook-inner">
+    <div class="rulebook-card">
+      <div class="rulebook-icon">📋</div>
+      <div class="rulebook-text">
+        <h3>Event Rulebook</h3>
+        <p>Challenge guidelines, scoring rules, and what to expect on the day.</p>
+      </div>
+      <a href="#" class="rulebook-dl" onclick="dlRulebook(event)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ROUNDS -->
+<section class="section" id="rounds">
+  <div class="sec-inner">
+    <div class="sec-head">
+      <p class="sec-label">// Challenge Levels</p>
+      <h2 class="sec-title">The Rounds</h2>
+    </div>
+    <div class="rounds-list">
+      <div class="round-card">
+        <div class="round-pill">Round 1</div>
+        <div class="round-content">
+          <p class="round-title">Cryptography Puzzle – Caesar Cipher</p>
+          <p class="round-sub">A message has been shifted. Identify the key, crack the encryption, and extract the hidden flag to advance.</p>
+          <div class="round-tags"><span class="rtag">ROT SHIFT</span><span class="rtag">DECRYPT</span><span class="rtag">BRUTE FORCE</span></div>
+        </div>
+      </div>
+      <hr class="round-divider"/>
+      <div class="round-card">
+        <div class="round-pill">Round 2</div>
+        <div class="round-content">
+          <p class="round-title">The Split Challenge</p>
+          <p class="round-sub">Two parallel tracks — 1. Steganography &amp; 2. Numeric Pattern Algorithm. A flag buried in an image; a hidden sequence encoded in numbers.</p>
+          <div class="round-tags"><span class="rtag">STEGANOGRAPHY</span><span class="rtag">LSB HIDING</span><span class="rtag">NUMERIC PATTERN</span><span class="rtag">ASCII</span></div>
+        </div>
+      </div>
+      <hr class="round-divider"/>
+      <div class="round-card">
+        <div class="round-pill">Round 3</div>
+        <div class="round-content">
+          <p class="round-title">Capture the Flag – Website Exploitation</p>
+          <p class="round-sub">A vulnerable web application holds the final flag. Probe, inspect, and exploit it. Complete this to escape.</p>
+          <div class="round-tags"><span class="rtag">SQL INJECTION</span><span class="rtag">DEV TOOLS</span><span class="rtag">WEB VULN</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM + VENUE -->
+<section class="section" id="team" style="padding-top:0;">
+  <div class="sec-inner">
+    <div class="sec-head">
+      <p class="sec-label">// Venue &amp; Coordinators</p>
+      <h2 class="sec-title">The Team</h2>
+    </div>
+
+    <div class="venue-card">
+      <p class="venue-lbl">Venue</p>
+      <p class="venue-name">CSE-IoT <br/>MIT Mysore</p>
+      <p class="venue-addr">Dept. of CSE-IC &amp; Cybersecurity · Maharaja Institute of Technology<br/>Mysore, Karnataka — 571 477</p>
+    </div>
+
+    <div class="fee-card">
+      <div class="fee-amount"><sup>₹</sup>300</div>
+      <div class="fee-info">
+        <p class="fee-lbl">Registration Fee · Per Team</p>
+        <div class="fee-list">
+          <p class="fee-item">Teams of exactly 2 members</p>
+          <p class="fee-item">Fee collected at the venue</p>
+          <p class="fee-item">No prior CTF experience needed</p>
+          <p class="fee-item">Internet allowed during event</p>
+          <p class="fee-item">Certificates for all participants</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="coord-group">
+      <p class="coord-group-label">Faculty Coordinators</p>
+      <div class="coord-grid">
+        <div class="coord-item"><span class="coord-n">01</span><div class="coord-info"><p class="coord-name">Prof. Seema CK</p><p class="coord-role">Asst. Professor · Dept. CSE-IC</p></div></div>
+        <div class="coord-item"><span class="coord-n">02</span><div class="coord-info"><p class="coord-name">Prof. Kruthik MS</p><p class="coord-role">Asst. Professor · Dept. CSE-IC</p></div></div>
+      </div>
+    </div>
+
+    <div class="coord-group">
+      <p class="coord-group-label">Student Coordinators</p>
+      <div class="coord-grid">
+        <div class="coord-item"><span class="coord-n">01</span><div class="coord-info"><p class="coord-name">Sneha R</p><p class="coord-role">Event Lead · CodeRed Club</p><p class="coord-phone">+91 9900827056</p></div></div>
+        <div class="coord-item"><span class="coord-n">02</span><div class="coord-info"><p class="coord-name">Mohammed Muhaimin</p><p class="coord-role">Event Lead · CodeRed Club</p><p class="coord-phone">+91 6364682506</p></div></div>
+        <div class="coord-item"><span class="coord-n">03</span><div class="coord-info"><p class="coord-name">Yashwitha A</p><p class="coord-role">Technical Lead · CodeRed Club</p><p class="coord-phone">+91 7676003916</p></div></div>
+        <div class="coord-item"><span class="coord-n">04</span><div class="coord-info"><p class="coord-name">Punith Kumar</p><p class="coord-role">Technical Lead · CodeRed Club</p><p class="coord-phone">+91 8861608621</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTER -->
+<section class="section" id="register" style="padding-top:0;">
+  <div class="sec-inner">
+    <div class="sec-head">
+      <p class="sec-label">// Registration</p>
+      <h2 class="sec-title">Register Your Team</h2>
+    </div>
+    <div class="form-card">
+      <p class="form-title">Team Registration</p>
+      <p class="form-sub">CypherX 2026 · CodeRed Club · MIT Mysore · 30 March 2026</p>
+      <form id="regForm" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="access_key" value="0c858175-fef9-417b-8f59-8f1f4925cff9">
+        <div class="fg"><label class="flbl">Team Name</label><input class="finput" type="text" name="Team Name" name="Team Name" placeholder="Enter your team name" required/></div>
+        <div class="frow">
+          <div class="fg"><label class="flbl">Member 1 – Full Name</label><input class="finput" type="text" name="Member 1 Name" name="Member 1 Name" placeholder="Full name" required/></div>
+          <div class="fg"><label class="flbl">Reg. Number</label><input class="finput" type="text" name="Member 1 Reg No" name="Member 1 Reg No" placeholder="4MH22CS___" required/></div>
+        </div>
+        <div class="frow">
+          <div class="fg"><label class="flbl">Member 2 – Full Name</label><input class="finput" type="text" name="Member 2 Name" name="Member 2 Name" placeholder="Full name" required/></div>
+          <div class="fg"><label class="flbl">Reg. Number</label><input class="finput" type="text" name="Member 2 Reg No" name="Member 2 Reg No" placeholder="4MH22CS___" required/></div>
+        </div>
+        <div class="fdiv">Contact Details</div>
+        <div class="frow">
+          <div class="fg"><label class="flbl">Team Email</label><input class="finput" type="email" name="email" placeholder="team@email.com" required/></div>
+          <div class="fg"><label class="flbl">Phone Number</label><input class="finput" type="tel" name="phone" placeholder="+91 XXXXX XXXXX" required/></div>
+        </div>
+        <div class="fg">
+          <label class="flbl">College Name</label>
+          <input class="finput" type="text" name="College Name" name="College Name" placeholder="Enter your college name" required/>
+        </div>
+        <div class="fg">
+          <label class="flbl">Department</label>
+          <select class="fsel" name="Department" required>
+            <option value="" disabled selected>Select your department</option>
+            <option>CSE-IOT &amp; Cybersecurity</option>
+            <option>Computer Science Engineering</option>
+            <option>Information Science Engineering</option>
+            <option>Electronics &amp; Communication Engineering</option>
+            <option>Mechanical Engineering</option>
+            <option>Civil Engineering</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="flbl">Prior CTF Experience</label>
+          <select class="fsel" name="CTF Experience">
+            <option value="" disabled selected>Select experience level</option>
+            <option>None — complete beginner</option>
+            <option>Tried a few challenges online</option>
+            <option>Participated in a CTF before</option>
+            <option>Regular CTF player</option>
+          </select>
+        </div>
+        <div class="fdiv">Payment Upload</div>
+        <div class="fg">
+          <label class="flbl">UPI Payment Screenshot</label>
+          <input class="finput" type="file" name="UPI Payment Screenshot" name="UPI Payment Screenshot" accept="image/*" style="padding: 8px 12px; cursor: pointer;" required/>
+        </div>
+        <button type="submit" class="fsub">Submit Registration →</button>
+      </form>
+
+      
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-logo">CYPHERX 2026</p>
+  <p class="footer-sub">
+    CodeRed Club · Dept. CSE-IC · Maharaja Institute of Technology Mysore<br/>
+    An Autonomous Institute Affiliated to VTU Belagavi<br/>
+    30 March 2026 · 09:00 AM · CSE-IoT Lab
+  </p>
+  <div class="codered-badge">🔒 Code Red</div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════
+   FALLING CANDLESTICK RAIN
+   Replicates the poster's bg exactly:
+   dark-red bodies, thin wicks, varied
+   opacity, steady downward drift
+═══════════════════════════════════ */
+(function(){
+  const canvas = document.getElementById('rain');
+  const ctx    = canvas.getContext('2d');
+  let W, H;
+
+  function resize(){
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function mkCandle(){
+    const bodyH = 18 + Math.random() * 72;
+    const bodyW = 3  + Math.random() * 9;
+    const wickT = 8  + Math.random() * 32;
+    const wickB = 5  + Math.random() * 20;
+    const total = wickT + bodyH + wickB;
+    const op    = 0.1 + Math.random() * 0.5;
+    /* poster has mostly red filled bars */
+    const shade = Math.floor(60 + Math.random() * 80);
+    return {
+      x: Math.random() * W,
+      y: -total - Math.random() * H * 0.6,
+      bodyH, bodyW, wickT, wickB, total, op,
+      speed: 0.25 + Math.random() * 1.0,
+      r: shade, g: Math.floor(shade * 0.08), b: Math.floor(shade * 0.1),
+    };
+  }
+
+  const candles = [];
+  for(let i = 0; i < 60; i++){
+    const c = mkCandle();
+    c.y = Math.random() * H;
+    candles.push(c);
+  }
+
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    for(const c of candles){
+      ctx.save();
+      ctx.globalAlpha = c.op;
+      const col = `rgb(${c.r},${c.g},${c.b})`;
+      const wickCol = `rgba(${c.r+30},${c.g},${c.b},0.7)`;
+
+      /* upper wick */
+      ctx.strokeStyle = wickCol;
+      ctx.lineWidth   = 1;
+      ctx.beginPath();
+      ctx.moveTo(c.x, c.y);
+      ctx.lineTo(c.x, c.y + c.wickT);
+      ctx.stroke();
+
+      /* body */
+      ctx.fillStyle = col;
+      ctx.fillRect(c.x - c.bodyW/2, c.y + c.wickT, c.bodyW, c.bodyH);
+
+      /* lower wick */
+      ctx.beginPath();
+      ctx.moveTo(c.x, c.y + c.wickT + c.bodyH);
+      ctx.lineTo(c.x, c.y + c.wickT + c.bodyH + c.wickB);
+      ctx.stroke();
+
+      ctx.restore();
+      c.y += c.speed;
+      if(c.y > H + c.total) Object.assign(c, mkCandle());
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── HAMBURGER ── */
+function toggleMob(){
+  document.getElementById('mob').classList.toggle('open');
+}
+/* close on outside click */
+document.addEventListener('click', e=>{
+  if(!e.target.closest('#ham') && !e.target.closest('#mob'))
+    document.getElementById('mob').classList.remove('open');
+});
+
+/* ── NAV ACTIVE ── */
+const secs  = document.querySelectorAll('section[id]');
+const navAs = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', ()=>{
+  let cur = '';
+  secs.forEach(s=>{ if(window.scrollY >= s.offsetTop - 120) cur = s.id; });
+  navAs.forEach(a=>{ a.style.color = a.getAttribute('href')==='#'+cur ? '#fff' : ''; });
+},{passive:true});
+
+/* ── FORM ── */
+function handleForm(e){
+  e.preventDefault();
+  document.getElementById('regForm').style.display    = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+}
+
+/* ── RULEBOOK ── */
+function dlRulebook(e){
+  e.preventDefault();
+  alert('Rulebook will be available shortly. Check back before March 30th!');
+}
+document.getElementById('rl-hero').addEventListener('click', dlRulebook);
+
+/* ── SCROLL REVEAL ── */
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      en.target.style.opacity   = '1';
+      en.target.style.transform = 'translateY(0)';
+    }
+  });
+},{threshold:0.06});
+document.querySelectorAll('.round-card,.coord-item,.venue-card,.fee-card,.rulebook-card,.form-card,.stat-pill').forEach(el=>{
+  el.style.cssText += 'opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease;';
+  obs.observe(el);
+});
+</script>
+</body>
+</html>
