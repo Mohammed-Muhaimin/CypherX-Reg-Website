@@ -126,7 +126,10 @@ nav{
 .round-divider{border:none;border-top:1px solid rgba(255,255,255,0.1);margin:0;}
 
 /* ── VENUE ── */
-.venue-card{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:24px;margin-bottom:20px;}
+.venue-card{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:24px;margin-bottom:20px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+.venue-info{flex:1;min-width:200px;}
+.venue-map{width:100%;max-width:280px;height:160px;border-radius:4px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);flex-shrink:0;}
+.venue-map iframe{width:100%;height:100%;display:block;}
 .venue-lbl{font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:8px;}
 .venue-name{font-family:'Oswald',sans-serif;font-size:26px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--white);margin-bottom:6px;line-height:1.15;}
 .venue-addr{font-size:13px;color:var(--grey);line-height:1.85;}
@@ -203,6 +206,10 @@ footer{border-top:1px solid rgba(255,255,255,0.1);padding:28px 20px;text-align:c
   .hero-btns{flex-direction:column;align-items:center;}
   .btn-main,.btn-outline{width:100%;max-width:300px;justify-content:center;}
 }
+.dev-credit{margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;}
+.dev-credit p{font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.15em;margin:0;}
+.dev-logo-ctn{display:flex;align-items:center;gap:10px;font-family:'Oswald',sans-serif;font-size:16px;color:var(--red);text-transform:uppercase;letter-spacing:0.05em;}
+.dev-logo{width:32px;height:32px;object-fit:contain;border-radius:4px;}
 </style>
 </head>
 <body>
@@ -239,7 +246,7 @@ footer{border-top:1px solid rgba(255,255,255,0.1);padding:28px 20px;text-align:c
   <p class="hero-tagline">A 3-level escape room based technical game!</p>
   <div class="hero-btns">
     <a href="#register" class="btn-main">Register Your Team</a>
-    <a href="#rulebook" class="btn-outline" id="rl-hero">
+    <a href="https://drive.google.com/file/d/1V5DzQfU9WTFsWvwhLaIZHNedkr-DwQBo/view?usp=sharing" target="_blank" class="btn-outline">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Download Rulebook
     </a>
@@ -269,7 +276,7 @@ footer{border-top:1px solid rgba(255,255,255,0.1);padding:28px 20px;text-align:c
         <h3>Event Rulebook</h3>
         <p>Challenge guidelines, scoring rules, and what to expect on the day.</p>
       </div>
-      <a href="#" class="rulebook-dl" onclick="dlRulebook(event)">
+      <a href="https://drive.google.com/file/d/1V5DzQfU9WTFsWvwhLaIZHNedkr-DwQBo/view?usp=sharing" target="_blank" class="rulebook-dl">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download PDF
       </a>
@@ -324,9 +331,14 @@ footer{border-top:1px solid rgba(255,255,255,0.1);padding:28px 20px;text-align:c
     </div>
 
     <div class="venue-card">
-      <p class="venue-lbl">Venue</p>
-      <p class="venue-name">CSE-IoT <br/>MIT Mysore</p>
-      <p class="venue-addr">Dept. of CSE-IC &amp; Cybersecurity · Maharaja Institute of Technology<br/>Mysore, Karnataka — 571 477</p>
+      <div class="venue-info">
+        <p class="venue-lbl">Venue</p>
+        <p class="venue-name">CSE-IoT <br/>MIT Mysore</p>
+        <p class="venue-addr">Dept. of CSE-IC &amp; Cybersecurity · Maharaja Institute of Technology<br/>Mysore, Karnataka — 571 477</p>
+      </div>
+      <div class="venue-map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3897.2467685538245!2d76.68618101140409!3d12.366395827805869!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baf71273625ff79%3A0xe21bc942801a6077!2sMaharaja%20Institute%20of%20Technology%20Mysore!5e0!3m2!1sen!2sin!4v1774387840167!5m2!1sen!2sin" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
     </div>
 
     <div class="fee-card">
@@ -442,7 +454,14 @@ footer{border-top:1px solid rgba(255,255,255,0.1);padding:28px 20px;text-align:c
     An Autonomous Institute Affiliated to VTU Belagavi<br/>
     30 March 2026 · 09:00 AM · CSE-IoT Lab
   </p>
-  <div class="codered-badge">🔒 Code Red</div>
+  
+  <div class="dev-credit">
+    <p>Website developed by</p>
+    <div class="dev-logo-ctn">
+      <img src="codered-logo.png" alt="Code Red Logo" class="dev-logo">
+      <span>Technical Team of Code Red</span>
+    </div>
+  </div>
 </footer>
 
 <script>
@@ -550,12 +569,7 @@ function handleForm(e){
   document.getElementById('successMsg').style.display = 'block';
 }
 
-/* ── RULEBOOK ── */
-function dlRulebook(e){
-  e.preventDefault();
-  alert('Rulebook will be available shortly. Check back before March 30th!');
-}
-document.getElementById('rl-hero').addEventListener('click', dlRulebook);
+/* ── RULEBOOK (Link integrated directly) ── */
 
 /* ── SCROLL REVEAL ── */
 const obs = new IntersectionObserver(entries=>{
