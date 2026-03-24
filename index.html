@@ -373,7 +373,7 @@ footer{border-top:1px solid rgba(255,255,255,0.1);padding:28px 20px;text-align:c
     <div class="form-card">
       <p class="form-title">Team Registration</p>
       <p class="form-sub">CypherX 2026 · CodeRed Club · MIT Mysore · 30 March 2026</p>
-      <form id="regForm" action="/api/register" method="POST">
+      <form id="regForm" action="/api/register" method="POST" enctype="multipart/form-data">
         <div class="fg"><label class="flbl">Team Name</label><input class="finput" type="text" name="Team Name" name="Team Name" placeholder="Enter your team name" required/></div>
         <div class="frow">
           <div class="fg"><label class="flbl">Member 1 – Full Name</label><input class="finput" type="text" name="Member 1 Name" name="Member 1 Name" placeholder="Full name" required/></div>
@@ -415,11 +415,11 @@ footer{border-top:1px solid rgba(255,255,255,0.1);padding:28px 20px;text-align:c
             <option>Regular CTF player</option>
           </select>
         </div>
-        <div class="fdiv">Payment Details</div>
-<div class="fg">
-  <label class="flbl">UPI Transaction/Reference ID</label>
-  <input class="finput" type="text" name="Transaction ID" placeholder="Enter 12-digit UPI ID" required/>
-</div>
+        <div class="fdiv">Payment Upload</div>
+        <div class="fg">
+          <label class="flbl">UPI Payment Screenshot</label>
+          <input class="finput" type="file" name="payment_screenshot" accept="image/*" style="padding: 8px 12px; cursor: pointer;" required/>
+        </div>
 
         <button type="submit" class="fsub">Submit Registration →</button>
       </form>
