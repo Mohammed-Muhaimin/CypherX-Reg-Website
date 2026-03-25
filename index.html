@@ -172,6 +172,10 @@ nav{
 .fsel option{background:#1a0608;}
 .fdiv{display:flex;align-items:center;gap:10px;font-family:'Josefin Sans',sans-serif;font-size:8px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin:4px 0 14px;}
 .fdiv::before,.fdiv::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08);}
+.qr-container{background:rgba(255,255,255,0.03);border:1px dashed rgba(230,57,70,0.3);border-radius:6px;padding:20px;text-align:center;margin-bottom:20px;display:flex;flex-direction:column;align-items:center;}
+.qr-label{color:var(--white);font-family:'Oswald',sans-serif;font-size:14px;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;font-weight:600;}
+.payment-qr{width:220px;height:220px;object-fit:contain;border-radius:6px;border:2px solid var(--red);background:#fff;padding:12px;margin-bottom:8px;}
+.qr-sub{font-family:'Josefin Sans',sans-serif;font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:0.15em;text-transform:uppercase;}
 .fsub{width:100%;font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);background:var(--red);border:none;padding:15px;cursor:pointer;border-radius:3px;margin-top:6px;transition:background 0.2s,box-shadow 0.2s;}
 .fsub:hover{background:var(--red-glow);box-shadow:0 6px 24px rgba(200,40,50,0.4);}
 .success{display:none;text-align:center;padding:40px 0;}
@@ -210,12 +214,31 @@ footer{border-top:1px solid rgba(255,255,255,0.1);padding:28px 20px;text-align:c
 .dev-credit p{font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.15em;margin:0;}
 .dev-logo-ctn{display:flex;align-items:center;gap:10px;font-family:'Oswald',sans-serif;font-size:16px;color:var(--red);text-transform:uppercase;letter-spacing:0.05em;}
 .dev-logo{width:32px;height:32px;object-fit:contain;border-radius:4px;}
+
+/* ── SUCCESS MODAL ── */
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:9999;justify-content:center;align-items:center;backdrop-filter:blur(4px);opacity:0;transition:opacity 0.3s ease;}
+.modal-overlay.show{display:flex;opacity:1;}
+.modal-box{background:#111;border:1px solid rgba(255,255,255,0.1);border-top:2px solid var(--red);border-radius:8px;padding:40px;position:relative;text-align:center;max-width:400px;width:90%;color:var(--white);box-shadow:0 10px 40px rgba(0,0,0,0.5), 0 0 20px rgba(230,57,70,0.1);transform:translateY(20px);transition:transform 0.3s ease;}
+.modal-overlay.show .modal-box{transform:translateY(0);}
+.modal-box h3{font-family:'Oswald',sans-serif;font-size:24px;margin-bottom:12px;color:var(--red);text-transform:uppercase;letter-spacing:0.05em;}
+.modal-box p{color:var(--grey);font-size:14px;line-height:1.6;margin-bottom:24px;}
+.modal-box button{background:var(--red);color:#fff;border:none;padding:12px 28px;border-radius:4px;font-family:'Josefin Sans',sans-serif;font-weight:700;letter-spacing:0.1em;cursor:pointer;text-transform:uppercase;transition:all 0.2s ease;}
+.modal-box button:hover{background:#ff4d5a;transform:translateY(-2px);box-shadow:0 4px 12px rgba(230,57,70,0.3);}
 </style>
 </head>
 <body>
 
 <canvas id="rain"></canvas>
 <div class="bg-glow"></div>
+
+<!-- SUCCESS MODAL -->
+<div id="successModal" class="modal-overlay">
+  <div class="modal-box">
+    <h3>Registration Successful! 🚀</h3>
+    <p>Your team's details and payment logic have been securely sent to the CodeRed Technical Team. We will verify your registration shortly.</p>
+    <button onclick="closeModal()">Awesome!</button>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -429,6 +452,13 @@ footer{border-top:1px solid rgba(255,255,255,0.1);padding:28px 20px;text-align:c
           </select>
         </div>
         <div class="fdiv">Payment Upload</div>
+        
+        <div class="qr-container">
+          <p class="qr-label">Scan to Pay Registration Fee (₹300)</p>
+          <img src="qr-code.jpeg" alt="Payment QR Code" class="payment-qr" />
+          <p class="qr-sub">UPI ID: snehargowda24@oksbi</p>
+        </div>
+
         <div class="fg">
           <label class="flbl">UPI Transaction / Reference ID</label>
           <input class="finput" type="text" name="Transaction ID" placeholder="Enter 12-digit UPI ID" required/>
@@ -584,6 +614,25 @@ document.querySelectorAll('.round-card,.coord-item,.venue-card,.fee-card,.rulebo
   el.style.cssText += 'opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease;';
   obs.observe(el);
 });
+
+/* ── SUCCESS POPUP CHECK ── */
+window.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('success') === 'true') {
+    const modal = document.getElementById('successModal');
+    modal.style.display = 'flex';
+    // tiny delay for css transition
+    setTimeout(() => modal.classList.add('show'), 10);
+    // remove parameter so it doesn't trigger on refresh
+    window.history.replaceState(null, '', window.location.pathname);
+  }
+});
+
+window.closeModal = function() {
+  const modal = document.getElementById('successModal');
+  modal.classList.remove('show');
+  setTimeout(() => modal.style.display = 'none', 300);
+}
 </script>
 </body>
 </html>
