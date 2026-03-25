@@ -172,6 +172,10 @@ nav{
 .fsel option{background:#1a0608;}
 .fdiv{display:flex;align-items:center;gap:10px;font-family:'Josefin Sans',sans-serif;font-size:8px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin:4px 0 14px;}
 .fdiv::before,.fdiv::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08);}
+.qr-container{background:rgba(255,255,255,0.03);border:1px dashed rgba(230,57,70,0.3);border-radius:6px;padding:20px;text-align:center;margin-bottom:20px;display:flex;flex-direction:column;align-items:center;}
+.qr-label{color:var(--white);font-family:'Oswald',sans-serif;font-size:14px;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;font-weight:600;}
+.payment-qr{width:220px;height:220px;object-fit:contain;border-radius:6px;border:2px solid var(--red);background:#fff;padding:12px;margin-bottom:8px;}
+.qr-sub{font-family:'Josefin Sans',sans-serif;font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:0.15em;text-transform:uppercase;}
 .fsub{width:100%;font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);background:var(--red);border:none;padding:15px;cursor:pointer;border-radius:3px;margin-top:6px;transition:background 0.2s,box-shadow 0.2s;}
 .fsub:hover{background:var(--red-glow);box-shadow:0 6px 24px rgba(200,40,50,0.4);}
 .success{display:none;text-align:center;padding:40px 0;}
@@ -448,6 +452,13 @@ footer{border-top:1px solid rgba(255,255,255,0.1);padding:28px 20px;text-align:c
           </select>
         </div>
         <div class="fdiv">Payment Upload</div>
+        
+        <div class="qr-container">
+          <p class="qr-label">Scan to Pay Registration Fee (₹300)</p>
+          <img src="qr-code.jpeg" alt="Payment QR Code" class="payment-qr" />
+          <p class="qr-sub">UPI ID: snehargowda24@oksbi</p>
+        </div>
+
         <div class="fg">
           <label class="flbl">UPI Transaction / Reference ID</label>
           <input class="finput" type="text" name="Transaction ID" placeholder="Enter 12-digit UPI ID" required/>
@@ -471,7 +482,7 @@ footer{border-top:1px solid rgba(255,255,255,0.1);padding:28px 20px;text-align:c
   <p class="footer-sub">
     CodeRed Club · Dept. CSE-IC · Maharaja Institute of Technology Mysore<br/>
     An Autonomous Institute Affiliated to VTU Belagavi<br/>
-    30 March 2026 · 09:00 AM · CSE-IoT 
+    30 March 2026 · 09:00 AM · CSE-IoT Lab
   </p>
   
   <div class="dev-credit">
