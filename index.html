@@ -45,9 +45,39 @@ body{
 
 nav,section,.ticker-strip,.rulebook-section,footer{position:relative;z-index:3;}
 
+/* ── ANNOUNCEMENT BAR ── */
+.announcement-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 30px;
+  background: var(--red-glow);
+  color: var(--white);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.announcement-track {
+  display: flex;
+  white-space: nowrap;
+  animation: announce-ticker 15s linear infinite;
+}
+.announcement-track span {
+  padding-right: 50px;
+}
+@keyframes announce-ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 /* ── NAV ── */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
+  position:fixed;top:30px;left:0;right:0;z-index:100;
   display:flex;align-items:center;justify-content:space-between;
   padding:0 24px;height:56px;
   background:rgba(18,4,6,0.9);
@@ -63,7 +93,7 @@ nav{
 .nav-reg:hover{background:var(--red-glow);}
 .ham{display:none;flex-direction:column;gap:5px;cursor:pointer;}
 .ham span{display:block;width:24px;height:2px;background:var(--white);}
-.mob-menu{display:none;position:fixed;top:56px;left:0;right:0;background:rgba(18,4,6,0.97);flex-direction:column;z-index:99;border-bottom:1px solid rgba(180,30,40,0.4);}
+.mob-menu{display:none;position:fixed;top:86px;left:0;right:0;background:rgba(18,4,6,0.97);flex-direction:column;z-index:99;border-bottom:1px solid rgba(180,30,40,0.4);}
 .mob-menu.open{display:flex;}
 .mob-menu a{font-family:'Josefin Sans',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;padding:16px 24px;border-bottom:1px solid rgba(255,255,255,0.06);}
 .mob-menu a:last-child{color:var(--red-glow);border-bottom:none;}
@@ -229,6 +259,16 @@ footer{border-top:1px solid rgba(255,255,255,0.1);padding:28px 20px;text-align:c
 </head>
 <body>
 
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  <div class="announcement-track">
+    <span>🚨 EVENT POSTPONED: CypherX is now rescheduled to 31st March 2026! 🚨</span>
+    <span>🚨 EVENT POSTPONED: CypherX is now rescheduled to 31st March 2026! 🚨</span>
+    <span>🚨 EVENT POSTPONED: CypherX is now rescheduled to 31st March 2026! 🚨</span>
+    <span>🚨 EVENT POSTPONED: CypherX is now rescheduled to 31st March 2026! 🚨</span>
+  </div>
+</div>
+
 <canvas id="rain"></canvas>
 <div class="bg-glow"></div>
 
@@ -276,7 +316,7 @@ footer{border-top:1px solid rgba(255,255,255,0.1);padding:28px 20px;text-align:c
     </a>
   </div>
   <div class="hero-stats">
-    <div class="stat-pill"><p class="stat-k">Date</p><p class="stat-v">30 March</p></div>
+    <div class="stat-pill"><p class="stat-k">Date</p><p class="stat-v">31st March</p></div>
     <div class="stat-pill"><p class="stat-k">Time</p><p class="stat-v">09:00 AM</p></div>
     <div class="stat-pill"><p class="stat-k">Venue</p><p class="stat-v">CSE-IoT</p></div>
     <div class="stat-pill"><p class="stat-k">Team Size</p><p class="stat-v">2 Members</p></div>
@@ -287,7 +327,7 @@ footer{border-top:1px solid rgba(255,255,255,0.1);padding:28px 20px;text-align:c
 <!-- TICKER -->
 <div class="ticker-strip">
   <div class="ticker-track">
-    <span class="t-item">Exploit</span><span class="t-item">Capture the Flag</span><span class="t-item">Escape Room</span><span class="t-item">Cryptography</span><span class="t-item">Steganography</span><span class="t-item">Web Exploitation</span><span class="t-item">Code Red Club</span><span class="t-item">30th March 2026</span><span class="t-item">MIT Mysore</span><span class="t-item">Exploit</span><span class="t-item">Capture the Flag</span><span class="t-item">Escape Room</span><span class="t-item">Cryptography</span><span class="t-item">Steganography</span><span class="t-item">Web Exploitation</span><span class="t-item">Code Red Club</span><span class="t-item">30th March 2026</span><span class="t-item">MIT Mysore</span>
+    <span class="t-item">Exploit</span><span class="t-item">Capture the Flag</span><span class="t-item">Escape Room</span><span class="t-item">Cryptography</span><span class="t-item">Steganography</span><span class="t-item">Web Exploitation</span><span class="t-item">Code Red Club</span><span class="t-item">31st March 2026</span><span class="t-item">MIT Mysore</span><span class="t-item">Exploit</span><span class="t-item">Capture the Flag</span><span class="t-item">Escape Room</span><span class="t-item">Cryptography</span><span class="t-item">Steganography</span><span class="t-item">Web Exploitation</span><span class="t-item">Code Red Club</span><span class="t-item">31st March 2026</span><span class="t-item">MIT Mysore</span>
   </div>
 </div>
 
@@ -400,7 +440,7 @@ footer{border-top:1px solid rgba(255,255,255,0.1);padding:28px 20px;text-align:c
     </div>
     <div class="form-card">
       <p class="form-title">Team Registration</p>
-      <p class="form-sub">CypherX 2026 · CodeRed Club · MIT Mysore · 30 March 2026</p>
+      <p class="form-sub">CypherX 2026 · CodeRed Club · MIT Mysore · 31st March 2026</p>
       <form id="regForm" action="/api/register" method="POST" enctype="multipart/form-data">
         <div class="fg"><label class="flbl">Team Name</label><input class="finput" type="text" name="Team Name" name="Team Name" placeholder="Enter your team name" required/></div>
         <div class="frow">
@@ -474,7 +514,7 @@ footer{border-top:1px solid rgba(255,255,255,0.1);padding:28px 20px;text-align:c
   <p class="footer-sub">
     CodeRed Club · Dept. CSE-IC · Maharaja Institute of Technology Mysore<br/>
     An Autonomous Institute Affiliated to VTU Belagavi<br/>
-    30 March 2026 · 09:00 AM · CSE-IoT Lab
+    31st March 2026 · 09:00 AM · CSE-IoT Lab
   </p>
   
   <div class="dev-credit">
